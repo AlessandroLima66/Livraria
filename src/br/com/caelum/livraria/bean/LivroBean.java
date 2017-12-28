@@ -53,20 +53,27 @@ public class LivroBean implements Serializable {
         this.livro.adicionaAutor(autor);
     }
 
+    /*
+     * FacesContext.getCurrentInstance() - obtem a referência do contexto JSF no momento da chamada do método
+     * addMessage(String , FacesMessage) - Adiciona a mensagem no contexto
+     * 		O primeiro parâmetro  é o id que definimos no XHTML do componente
+     * 		O segundo parâmetro é um FacesMessage, que recebe no seu construtor a mensagem que queremos mostrar
+     */
     public void gravar() {
         System.out.println("Gravando livro " + this.livro.getTitulo());
 
         if (livro.getAutores().isEmpty()) {
-            throw new RuntimeException("Livro deve ter pelo menos um Autor.");
+            FacesContext.getCurrentInstance().addMessage("autor",  new FacesMessage("Livro deve ter pelo menos um Autor"));
+            return;
+        } else {
+            new DAO<Livro>(Livro.class).adiciona(this.livro);
+            this.livro = new Livro(); //limpar os campos da tela
         }
-
-        new DAO<Livro>(Livro.class).adiciona(this.livro);
-        this.livro = new Livro();
     }
     
     /*
      * FacesContext - um objeto que permite obter informações da view processada no momento;
-     * UIComponent - cmponente que esta sendo validado;
+     * UIComponent - referencia ao componente que esta sendo validado;
      * Object - valor digitado pelo usuário;
      * ValidatorException - é a exceção que sinaliza para o JSF que algo deu errado.
      */
