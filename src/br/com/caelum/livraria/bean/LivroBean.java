@@ -3,8 +3,12 @@ package br.com.caelum.livraria.bean;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 
 import br.com.caelum.livraria.dao.DAO;
 import br.com.caelum.livraria.modelo.Autor;
@@ -19,6 +23,7 @@ public class LivroBean implements Serializable {
     private Livro livro = new Livro();
     private Integer autorId;
 
+    
     public void setAutorId(Integer autorId) {
         this.autorId = autorId;
     }
@@ -57,5 +62,19 @@ public class LivroBean implements Serializable {
 
         new DAO<Livro>(Livro.class).adiciona(this.livro);
         this.livro = new Livro();
+    }
+    
+    /*
+     * FacesContext - um objeto que permite obter informações da view processada no momento;
+     * UIComponent - cmponente que esta sendo validado;
+     * Object - valor digitado pelo usuário;
+     * ValidatorException - é a exceção que sinaliza para o JSF que algo deu errado.
+     */
+    public void validaISBNComecaComDigitoUm(FacesContext fc, UIComponent component, Object valorDigitado) 
+    		throws ValidatorException {
+    	
+    	String valor = valorDigitado.toString();
+    	if(!valor.startsWith("1"))
+    		throw new ValidatorException(new FacesMessage("ISBN deve começar com 1"));
     }
 }

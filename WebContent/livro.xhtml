@@ -22,7 +22,7 @@
                     </h:inputText>
 
                     <h:outputLabel value="ISBN:" for="isbn" />
-                    <h:inputText id="isbn" value="#{livroBean.livro.isbn}" />
+                    <h:inputText id="isbn" value="#{livroBean.livro.isbn}" validator="#{livroBean.validaISBNComecaComDigitoUm}"/>
 
                     <h:outputLabel value="Preço:" for="preco" />
                     <h:inputText id="preco" value="#{livroBean.livro.preco}" />
