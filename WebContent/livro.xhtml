@@ -25,7 +25,9 @@
                     <h:inputText id="isbn" value="#{livroBean.livro.isbn}" validator="#{livroBean.validaISBNComecaComDigitoUm}"/>
 
                     <h:outputLabel value="Preço:" for="preco" />
-                    <h:inputText id="preco" value="#{livroBean.livro.preco}" />
+                    <h:inputText id="preco" value="#{livroBean.livro.preco}" validatorMessage="Preço deve estar entre 1.0 e 1000.00">
+                    	<f:validateDoubleRange minimum="1.0" maximum="1000.00"/>
+                    </h:inputText>
 
                     <h:outputLabel value="Data de Lançamento:" for="dataLancamento" />
                     <h:inputText id="dataLancamento"
