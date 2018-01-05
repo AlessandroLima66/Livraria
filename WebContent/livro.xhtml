@@ -60,7 +60,9 @@
                     action="#{livroBean.gravarAutor}" >
                     <f:ajax execute="IDAutor" render="tabelaAutores"/>
                  </h:commandButton>
-
+				
+				<h:commandLink value="Cadasrar novo autor" action="autor?faces-true" immediate="true" />
+				
                 <h:dataTable value="#{livroBean.autoresDoLivro}" var="autor" id="tabelaAutores">
                     <h:column>
                         <h:outputText value="#{autor.nome}" />
